@@ -16,17 +16,17 @@ public class ClientsController : ControllerBase
     }
 
     
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteClientAsync(int id)
+    [HttpDelete("{idClient}")]
+    public async Task<IActionResult> DeleteClientAsync(int idClient)
     {
         try
         {
-            await _dbService.DeleteClientAsync(id);
+            await _dbService.DeleteClientAsync(idClient);
             return NoContent();
         }
         catch (AssignedTripsException)
         {
-            return BadRequest($"Klient o id {id} jest przypisany do co najmniej jednej wycieczki");
+            return BadRequest($"Klient o id {idClient} jest przypisany do co najmniej jednej wycieczki");
         }
         catch (Exception ex)
         {
