@@ -1,3 +1,7 @@
+using apbd19_cw12.Data;
+using apbd19_cw12.Services;
+using Microsoft.EntityFrameworkCore;
+
 namespace apbd19_cw12;
 
 public class Program
@@ -6,19 +10,14 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
-
         builder.Services.AddControllers();
+        builder.Services.AddDbContext<ApbdContext>(options => 
+            options.UseSqlServer("Name=ConnectionStrings:DefaultConnection"));
+        builder.Services.AddScoped<IDbService, DbService>();
 
         var app = builder.Build();
-
-        // Configure the HTTP request pipeline.
-
         app.UseAuthorization();
-
-
         app.MapControllers();
-
         app.Run();
     }
 }
